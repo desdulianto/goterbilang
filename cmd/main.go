@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/desdulianto/terbilang"
+	terbilang "github.com/desdulianto/goterbilang"
 )
 
 func main() {
