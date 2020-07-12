@@ -7,7 +7,7 @@ import (
 )
 
 var satuan = [...]string{"nol", "satu", "dua", "tiga", "empat",
-	"lima", "enam", "tujuh", "delapan", "sembilan"}
+	"lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"}
 
 type terbilangSuffix struct {
 	nilai int64
@@ -36,15 +36,10 @@ func FromInt(n int) string {
 	switch {
 	case n < 0:
 		return fmt.Sprintf("negatif %s", FromInt(int(math.Abs(float64(n)))))
-	case n < 10:
+	case n < 12:
 		return satuan[n]
-	case n >= 11 && n <= 19:
-		return strings.Replace(
-			fmt.Sprintf("%s belas", satuan[n%10]),
-			"satu belas",
-			"sebelas",
-			1,
-		)
+	case n >= 12 && n <= 19:
+		return fmt.Sprintf("%s belas", satuan[n%10])
 	default:
 		suffix, err := findFirst(n)
 		if err != nil {
@@ -56,10 +51,8 @@ func FromInt(n int) string {
 		}
 		return strings.TrimSpace(strings.ReplaceAll(
 			strings.ReplaceAll(
-				strings.ReplaceAll(
-					fmt.Sprintf("%s %s %s", FromInt(int(int64(n)/suffix.nilai)),
-						suffix.label, trail),
-					"satu puluh", "sepuluh"),
+				fmt.Sprintf("%s %s %s", FromInt(int(int64(n)/suffix.nilai)),
+					suffix.label, trail),
 				"satu ratus", "seratus"),
 			"satu ribu", "seribu"))
 	}
