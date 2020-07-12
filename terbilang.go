@@ -54,13 +54,13 @@ func FromInt(n int) string {
 		if int64(n)%suffix.nilai > 0 {
 			trail = FromInt(int(int64(n) % suffix.nilai))
 		}
-		return strings.ReplaceAll(
+		return strings.TrimSpace(strings.ReplaceAll(
 			strings.ReplaceAll(
 				strings.ReplaceAll(
 					fmt.Sprintf("%s %s %s", FromInt(int(int64(n)/suffix.nilai)),
 						suffix.label, trail),
 					"satu puluh", "sepuluh"),
 				"satu ratus", "seratus"),
-			"satu ribu", "seribu")
+			"satu ribu", "seribu"))
 	}
 }
